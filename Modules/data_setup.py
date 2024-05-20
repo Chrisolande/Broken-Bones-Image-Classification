@@ -5,10 +5,10 @@ from torchvision import datasets, transforms
 NUM_WORKERS = os.cpu_count()
 
 def create_dataloaders(
-    train_dir: str, 
-    test_dir: str, 
-    transform: transforms.Compose, 
-    batch_size: int, 
+    train_dir: str,
+    test_dir: str,
+    transform: transforms.Compose,
+    batch_size: int,
     num_workers: int=NUM_WORKERS
 ):
 

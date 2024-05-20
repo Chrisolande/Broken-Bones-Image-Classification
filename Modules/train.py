@@ -11,8 +11,9 @@ BATCH_SIZE = 32
 HIDDEN_UNITS = 10
 LEARNING_RATE = 0.001
 
-train_dir = "/content/bonebreaks/train"
-test_dir = "/content/bonebreaks/test"
+train_dir = "/content/pneumonia/train"
+test_dir = "/content/pneumonia/test"
+val_dir = "/content/pneumonia/val"
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
