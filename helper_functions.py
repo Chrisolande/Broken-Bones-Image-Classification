@@ -35,7 +35,7 @@ def plot_decision_boundary(model: torch.nn.Module, X: torch.Tensor, y: torch.Ten
         y_logits = model(X_to_pred_on)
 
     if len(torch.unique(y)) > 2:
-        y_pred = torch.softmax(y_logits, dim=1).argmax(dim=1)  
+        y_pred = torch.sigmoid(y_logits).argmax(dim=1)  
     else:
         y_pred = torch.round(torch.sigmoid(y_logits))  
 
@@ -147,7 +147,7 @@ def pred_and_plot_image(
         target_image_pred = model(target_image.to(device))
 
     # 6. Convert logits -> prediction probabilities (using torch.softmax() for multi-class classification)
-    target_image_pred_probs = torch.softmax(target_image_pred, dim=1)
+    target_image_pred_probs = torch.sigmoid(target_image_pred, dim=1)
 
     # 7. Convert prediction probabilities -> prediction labels
     target_image_pred_label = torch.argmax(target_image_pred_probs, dim=1)
@@ -175,7 +175,7 @@ def download_data(source: str,
                   remove_source: bool = True) -> Path:
 
     # Setup path to data folder
-    data_path = Path("data/")
+    data_path = Path("content/")
     image_path = data_path / destination
 
     # If the image folder doesn't exist, download it and prepare it... 
@@ -185,14 +185,14 @@ def download_data(source: str,
         print(f"[INFO] Did not find {image_path} directory, creating one...")
         image_path.mkdir(parents=True, exist_ok=True)
         
-        # Download pizza, steak, sushi data
+        # Download pneumonia
         target_file = Path(source).name
         with open(data_path / target_file, "wb") as f:
             request = requests.get(source)
             print(f"[INFO] Downloading {target_file} from {source}...")
             f.write(request.content)
 
-        # Unzip pizza, steak, sushi data
+        # unzip pneumonia files(if i will have uploaded the zip on git)
         with zipfile.ZipFile(data_path / target_file, "r") as zip_ref:
             print(f"[INFO] Unzipping {target_file} data...") 
             zip_ref.extractall(image_path)
